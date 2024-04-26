@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Recibidos {% endblock %}
+
+{% block content %}
+
+    <section id="messages_container">
+
+        <h1 class="messages_title">Mensajes recibidos</h1>
+
+        {% if messages %}
+
+            {% for message_received in messages %}
+                <div id="message_received">
+                    {% if message_received.state %}
+                        <a href="{% url 'individual-message' message_received.id %}" class="message_issue">{{ message_received.issue|capfirst }}</a>
+                        <h3 class="user_sender">De: @{{ message_received.sender|capfirst }}</h3>
+                        <span class="date">{{message_received.date_sent}}</span>
+                    {% else %}
+                        <a href="{% url 'individual-message' message_received.id %}" class="message_issue readed_message">{{ message_received.issue|capfirst }}</a>
+                        <h3 class="user_sender readed_message readed_ligther">De: @{{ message_received.sender|capfirst }}</h3>
+                        <span class="date readed_message readed_ligther">{{message_received.date_sent}}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+        {% else %}
+            <div id="msg_not_found">
+
+                <h3 class="title_not_found">No hay mensajes recibidos...</h3>
+
+                <img src="{% static 'images/empty_mail.png' %}" alt="Not found">
+                
+            </div>
+        {% endif %}
+
+    </section>
+    
+{% endblock %}

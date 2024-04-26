@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Buscar amigos {% endblock %}
+
+{% block content %}
+
+    <section id="search_container">
+        <h1 class="search_title">Encuentra a tus amigos</h1>
+        
+        <form id="buscador" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Ingresa el nombre de usuario" name="search"/>
+            <input type="submit" value="L" class="icon" />
+        </form>
+
+
+
+        {% if search %}
+            {% if searched %}
+                <div id="results_list">
+                    <h3 class="search_result">Resultados para: {{search}}</h3>  
+                    {% for usuario in searched%}
+                        <div id="contact">
+                            <img id="profile_picture" src="{% static 'images/notebook_icon.png' %}" alt="Contacto 1" title="Contacto 1">
+                            <h1 id="contact_name" class="{{usuario.username}}">@{{usuario.username|capfirst}}</h1>
+                            <div class="contact_icon">
+                                {% if lista_contactos|length > 0 %}
+                                    {% if usuario.username in lista_contactos %}
+                                        <a href="{% url 'delete-friend' usuario.id %}" title="Eliminar contacto"><i class='bx bxs-checkbox-minus' ></i></a>
+                                    {% elif solicitudes %}
+                                        {% for solicitud in solicitudes %}
+                                            {% if solicitud.id_requested == usuario.id %}
+                                                <a href="#" title="Solicitud enviada"><i class='bx bx-time-five'></i></a>
+                                            {% else %}
+                                                <a href="{% url 'send-request' user.id %}" title="Agregar contacto"><i class='bx bxs-plus-square'></i></a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <a href="{% url 'send-request' usuario.id %}" title="Agregar contacto"><i class='bx bxs-plus-square'></i></a>
+                                    {% endif %}
+                                
+                                {% elif solicitudes %}
+                                    {% for solicitud in solicitudes %}
+                                        {% if solicitud.id_requested == usuario.id %}
+                                            <a href="#" title="Solicitud enviada"><i class='bx bx-time-five'></i></a>
+                                        {% else %}
+                                            <a href="{% url 'send-request' user.id %}" title="Agregar contacto"><i class='bx bxs-plus-square'></i></a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <a href="{% url 'send-request' usuario.id %}" title="Agregar contacto"><i class='bx bxs-plus-square'></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div id="results_list">
+                    <h3 class="search_result">No hay resultados para: {{search}}</h3>
+
+                    <img src="{% static 'images/desert.jpg' %}" alt="Not found">
+                </div>
+            {% endif %}
+        {% endif %}
+        
+    </section>
+
+{% endblock %}

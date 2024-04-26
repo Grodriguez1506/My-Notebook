@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block content %}
+    {% if messages %}
+
+        {% for message in messages %}
+        
+            <div class="message alert_success">
+                {{message}}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    {% if user.email %}
+
+        {% if contacts %}
+            {% for contact in contacts %}
+                    <div id="contact">
+                        <img id="profile_picture" src="{% static 'images/notebook_icon.png' %}" alt="{{contact.username}}" title="{{contact.username}}">
+                        <h1 id="contact_name">@{{contact.username|capfirst}}</h1>
+                        <div class="contact_icon">
+                            <a href="{% url 'send-message' contact.username %}" title="Enviar mensaje"><i class='bx bxs-chat' ></i></a>
+                            <a href="{% url 'delete-friend' contact.user_id %}" title="Eliminar contacto"><i class='bx bxs-checkbox-minus'></i></a>
+                        </div>
+                    </div>
+            {% endfor %}
+        
+        {% else %}
+            
+            <div class="welcome">
+                <h1>¡Vaya! Parece que no tienes amigos aún</h1>
+                <div class="welcome_image">
+                    <img class="home_img" src="{% static 'images/lonely.jpg' %}" alt="My Notebook">
+                </div>
+            </div>
+
+        {% endif %}
+
+    {% else %}
+        
+        <div class="welcome">
+            <h1>Únete a la red más innovadora</h1>
+            <div class="welcome_image">
+                <img class="main_img" src="{% static 'images/welcome_img.jpg' %}" alt="My Notebook">
+            </div>
+        </div>
+
+    {% endif %}
+{% endblock %}

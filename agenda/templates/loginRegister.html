@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Inicio de sesión {% endblock %}
+
+{% block content %}
+    {% if registration_form.errors %} 
+        
+        {% for error in registration_form.errors  %}
+            <strong class="errors">
+                {{registration_form.errors}}
+            </strong>
+        {% endfor %}
+        
+    {% endif %}
+    
+    {% if messages %}
+
+        {% for message in messages %}
+        
+            <div class="message alert_warning">
+                {{message}}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    
+
+    <div class="loginRegister">
+
+        <form id='login_form' class="login_form" method="post" action="">
+            <h1>Iniciar sesión</h1>
+            {% csrf_token %}
+
+            {% for field in login_form %}
+            
+                <label>{{field.label}}</label>
+                {{field}}
+    
+            {% endfor %}
+
+            <input name="login_submit" type="submit" value="Ingresa">
+        </form>
+
+        <form id='register_form' class="register_form" method="post" action="">
+            <h1>Registrate</h1>
+            {% csrf_token %}
+    
+            {% for field in registration_form %}
+            
+                <label>{{field.label}}</label>
+                {{field}}
+    
+            {% endfor %}
+            
+    
+            <input name="register_submit" type="submit" value="Registrate">
+        </form>
+
+        <div class="image_register login_img">
+            <img src="{% static 'images/greetings.png' %}" alt="Message" title="My notebook">
+            <h1>Conectate con tus amigos</h1>
+            <span class="info">¿Eres nuevo?</span>
+            <span class="to_register">Regístrate</span>
+        </div>
+    
+        <div class="image_register register_img">
+            <img src="{% static 'images/message.png' %}" alt="Message" title="My notebook">
+            <h1>Unete y acorta las distancias</h1>
+            <span class="info">¿Ya tienes cuenta?</span>
+            <span class="to_login">Iniciar sesión</span>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="{% static 'js/loginRegister.js' %}"></script>
+{% endblock %}

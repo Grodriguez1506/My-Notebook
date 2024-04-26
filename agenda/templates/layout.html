@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    {% load static %}
+    <title>
+        {% block title %}
+
+        {% endblock %} | My Notebook
+    </title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" type="favicon/x-icon" href="{% static 'images/notebook_icon.png' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <header>
+        <a href="{% url 'inicio' %}" id="icon">
+            <img src="{% static 'images/notebook_icon.png' %}" alt="My Notebook">
+            <h1>My Notebook</h1>
+        </a>
+
+        <nav id="menu">
+            <ul>
+                <li>
+                    <a href="{% url 'inicio' %}">Inicio</a>
+                </li>
+                {% if user.email %}
+                    {% if conteo_mensajes > 0 %}
+                        <li>
+                            <a href="#" class="notification">Mensajes {{conteo_mensajes}}</a>
+                            <ul class="ul_notification">
+                                <li>
+                                    <a href="{% url 'messages'%}" class="a_notification">Recibidos {{conteo_mensajes}}</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'sent-messages'%}">Enviados</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% else%}
+                        <li>
+                            <a href="#">Mensajes</a>
+                            <ul>
+                                <li>
+                                    <a href="{% url 'messages'%}">Recibidos</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'sent-messages'%}">Enviados</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if conteo_solicitudes > 0 %}
+                        <li>
+                            <a href="{% url 'friends-request' %}" class="notification">Solicitudes {{ conteo_solicitudes }}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'friends-request' %}">Solicitudes</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="{% url 'search-friends' %}">Buscar</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">Cerrar sesión</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'login-register' %}">Iniciar sesión</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <div id="content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <footer id="footer">
+        <a href="#">
+            <img src="{% static 'images/notebook_icon.png' %}" alt="My Notebook">
+        </a>
+        &copy; Gabriel Rodríguez - 2023
+    </footer>
+    <script type="text/javascript" src="{% static 'js/submenu.js' %}"></script>
+</body>
+</html>

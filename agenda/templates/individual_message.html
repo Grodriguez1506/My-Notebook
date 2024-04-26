@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} {{message.0.issue|capfirst}} {% endblock %}
+
+{% block content %}
+
+    <section id="messages_container">
+
+        <h1 class="messages_title">{{message.0.issue|capfirst}}</h1>
+        
+        <div id="sidebar"></div>
+        <div id="individual_message">
+
+            <h1 class="from">De: @{{message.0.sender|capfirst}}</h1>
+
+            <h1 class="to">Para: @{{message.0.receiver|capfirst}}</h1>
+
+            <h2>Asunto: {{message.0.issue|capfirst}}</h2>
+
+            <p>{{message.0.content|capfirst}}</p>
+
+        </div>
+
+    </section>
+    
+    <script type="text/javascript" src="{% static 'js/sidebarMessage.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Enviar mensaje {% endblock %}
+
+{% block content %}
+    <section id="send_container">
+        <h1 class="send_title"> Enviar mensaje</h1>
+        
+        <div class="info_message">
+
+            De: @{{usuario_actual|capfirst}}<br/><br/>
+            Para: @{{usuario_destino|capfirst}}
+
+        </div>
+
+        <form class="message_form" method="post">
+            {% csrf_token %}
+
+            {% for field in formulario %}
+            
+                <label>{{field.label}}</label>
+                {{field}}
+    
+            {% endfor %}
+
+            <input type="submit" value="Enviar mensaje">
+
+        </form>
+
+    </section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Enviados {% endblock %}
+
+{% block content %}
+
+    <section id="messages_container">
+
+        <h1 class="messages_title">Mensajes enviados</h1>
+
+        {% if sents %}
+
+            {% for sent in sents %}
+                <div id="message_received">
+                    <a href="#" class="message_issue">{{ sent.issue|capfirst }}</a>
+                    <h3 class="user_sender">Para: @{{ sent.receiver|capfirst }}</h3>
+                    <span class="date">{{sent.date_sent}}</span>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            <div id="msg_not_found">
+
+                <h3 class="title_not_found">No hay mensajes enviados...</h3>
+
+                <img src="{% static 'images/empty_mail.png' %}" alt="Not found">
+                
+            </div>
+        {% endif %}
+
+    </section>
+    
+{% endblock %}

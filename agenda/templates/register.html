@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Registro {% endblock %}
+
+{% block content %}
+
+    {% if formulario.errors %} 
+        
+        {% for error in formulario.errors  %}
+            <strong class="errors">
+                {{formulario.errors}}
+            </strong>
+        {% endfor %}
+        
+    {% endif %}
+
+    <form method="post" action="">
+        <h1>Registrate</h1>
+        {% csrf_token %}
+
+        {% for field in formulario %}
+        
+            <label>{{field.label}}</label>
+            {{field}}
+
+        {% endfor %}
+        
+
+        <input type="submit" value="Registrate">
+    </form>
+
+    <div class="image_register">
+        <img src="{% static 'images/message.png' %}" alt="Message" title="My notebook">
+        <h1>Unete a nosotros y acorta las distancias</h1>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Inicio de sesión {% endblock %}
+
+{% block content %}
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message alert_warning">
+                {{message}}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    <form method="post" action="">
+        <h1>Iniciar sesión</h1>
+        {% csrf_token %}
+
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" name="username">
+
+        <label for="username">Contraseña:</label>
+        <input type="password" name="password">
+        
+
+        <input type="submit" value="Ingresa">
+    </form>
+
+    <div class="image_register">
+        <img src="{% static 'images/greetings.png' %}" alt="Message" title="My notebook">
+        <h1>Conectate con tus amigos</h1>
+    </div>
+
+{% endblock %}

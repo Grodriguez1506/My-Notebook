@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block title %} Solicitudes pendientes {% endblock %}
+
+{% block content %}
+    <section id="request_container">
+        <h1 class="request_title"> Solicitudes recibidas</h1>
+        {% if solicitudes %}
+            {% for solicitud in solicitudes %}
+                <div id="contact">
+                    <img id="profile_picture" src="{% static 'images/notebook_icon.png' %}" alt="{{solicitud.username}}" title="{{solicitud.username}}">
+                    <h1 id="contact_name">@{{solicitud.username|capfirst}}</h1>
+                    <div class="contact_icon">
+                        <a href="{% url 'accept-request' solicitud.user_id %}" title="Aceptar solicitud"><i class='bx bxs-check-square'></i></a>
+                        <a href="{% url 'reject-request' solicitud.user_id %}" title="Rechazar solicitud"><i class='bx bxs-x-square'></i></a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div id="results_list">
+                <h3 class="request_unresults">No hay solicitudes pendientes</h3>
+                <img src="{% static 'images/desert2.jpg' %}" alt="Not found">
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
