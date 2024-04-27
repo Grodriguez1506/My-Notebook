@@ -10,8 +10,8 @@ class Contacts(models.Model):
 
 class FriendsRequest(models.Model):
     username = models.CharField(verbose_name="Nombre de usuario", max_length=52)
-    id_requested = models.IntegerField(verbose_name="A quien", null=True)
     created_at = models.DateField(verbose_name="Enviado el", auto_now_add=True)
+    id_requested = models.IntegerField(verbose_name="A quien", null=True)
 
 class ListMessages(models.Model):
     sender = models.CharField(verbose_name="Remitente", max_length=100)
