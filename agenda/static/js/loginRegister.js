@@ -25,7 +25,7 @@ function hideLogin(){
     loginForm.style.transition = 'all 500ms';
     loginForm.style.transform = 'translateY(-100%)';
     loginImg.style.transition = 'all 500ms';
-    loginImg.style.transform = 'translateY(150%)';
+    loginImg.style.transform = 'translateY(160%)';
 }
 
 function showLogin(){
